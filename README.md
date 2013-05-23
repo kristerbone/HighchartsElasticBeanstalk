@@ -7,7 +7,7 @@ We've have been building a rich client app on the .NET platform using Highcharts
 tried using the .NET solution as suggested on the Highcharts install page. 
 
 This worked for the most part but we were plagued with minor rendering issues, labels wouldn't align, 
-borders would appear, date entry fields were overlapped, legends would stop rendering as soon as the 
+borders would appear where they shouldn't, date entry fields were overlapped, legends would stop rendering as soon as the 
 renderer encountered any HTML to name but few. We were sure this was all to down to the SVG.dll, we could post 
 the same to the Highcharts export server and all would render as expected. 
 
@@ -22,7 +22,7 @@ To get up and running with your own Highcharts export server hosted in Elastic B
 
 ###Pre-requistites: 
 1. Git installed.
-2. Pwershell 2.0 installed.
+2. Powershell 2.0 installed.
 3. An AWS account with permission to create Beanstalk applications.
 4. The Amazon Access Key Id and Secret Access Key for the account above.
 
@@ -34,11 +34,15 @@ To get up and running with your own Highcharts export server hosted in Elastic B
 	1. AWSAccessKeyId
 	2. AWSSecretKey
 	3. AWS Region (Just leave as default)
-	4. AWS Elastic Beanstalk Application (The name of your application)
+	4. AWS Elastic Beanstalk Application (The name of your application - HighchartsCoName)
 	5. AWS Elastic Beanstalk Environment (The environment name, you can have multiple, STAGING, PROD etc)
 	This then stores your credentials locally, creates the Beanstalk app, Environment EC2 instance, Loadbalancer, Beanstalk Security Group 
 	and a nice http://<AWS Elastic Beanstalk Environment>.elasticbeanstalk.com address to access your application. 
 	Our failed a couple of time to create the environment but create everything else, we just created the env with the same name from 
 	within the console.
 5. Now run git aws.push from the root of your local repository, this will copy the files to the environment.
-6. Make a cup of tea, come back, done.
+6. Update your Highcharts export server url to http://<AWS Elastic Beanstalk Environment>.elasticbeanstalk.com
+6. Test (Should be done).
+
+Note: the only change made to the index.php export file as supplied by Highcharts was to parameterise the temp directory to use
+the system function $tempDir = sys_get_temp_dir();
